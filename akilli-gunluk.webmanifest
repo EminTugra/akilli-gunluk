@@ -1,0 +1,20 @@
+{
+  "name": "Akıllı Günlük",
+  "short_name": "Günlük",
+  "description": "Kişisel, hızlı ve çevrimdışı çalışabilen günlük uygulaması.",
+  "start_url": "./akilli-gunluk-m3-expressive.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f9f8",
+  "theme_color": "#8a5873",
+  "categories": ["productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "./akilli-gunluk-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
