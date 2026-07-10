@@ -1,5 +1,8 @@
-const CACHE_NAME = "akilli-gunluk-v8";
+const CACHE_NAME = "akilli-gunluk-v9";
 const APP_SHELL = [
+  "./",
+  "./index.html",
+  "./404.html",
   "./akilli-gunluk-m3-expressive.html",
   "./akilli-gunluk.webmanifest",
   "./akilli-gunluk-icon.svg"
@@ -24,6 +27,6 @@ self.addEventListener("fetch", (event) => {
       const copy = response.clone();
       caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
       return response;
-    }).catch(() => caches.match("./akilli-gunluk-m3-expressive.html")))
+    }).catch(() => caches.match("./index.html").then((fallback) => fallback || caches.match("./akilli-gunluk-m3-expressive.html"))))
   );
 });
