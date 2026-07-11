@@ -2,13 +2,13 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#8a5873">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Akıllı Günlük">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="./akilli-gunluk.webmanifest">
   <link rel="apple-touch-icon" href="./akilli-gunluk-icon.svg">
   <title>Akıllı Günlük</title>
@@ -63,7 +63,7 @@
       --radius-xl: 34px;
       --radius-pill: 999px;
       --spacing: 16px;
-      --bottom-nav-height: 82px;
+      --bottom-nav-height: 104px;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -189,6 +189,7 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
+      overflow-x: hidden;
       background: var(--surface);
       color: var(--on-surface);
       font-family: var(--font-body);
@@ -213,10 +214,24 @@
     }
 
     .material-symbols-rounded {
+      font-family: "Material Symbols Rounded";
       font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 24;
       font-size: 24px;
       line-height: 1;
       pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1em;
+      min-width: 1em;
+      max-width: 1em;
+      overflow: hidden;
+      white-space: nowrap;
+      text-transform: none;
+      letter-spacing: 0;
+      -webkit-font-feature-settings: "liga";
+      font-feature-settings: "liga";
+      -webkit-font-smoothing: antialiased;
     }
 
     .app-shell {
@@ -225,6 +240,7 @@
       width: 100%;
       height: 100%;
       background: var(--surface);
+      overflow-x: hidden;
     }
 
     .top-app-bar {
@@ -237,8 +253,8 @@
       grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       gap: 12px;
-      min-height: var(--topbar-height);
-      padding: 14px clamp(14px, 3vw, 28px);
+      min-height: calc(var(--topbar-height) + env(safe-area-inset-top));
+      padding: calc(14px + env(safe-area-inset-top)) clamp(14px, 3vw, 28px) 14px;
       background: color-mix(in srgb, var(--surface) 94%, transparent);
       backdrop-filter: saturate(1.05) blur(14px);
       border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 72%, transparent);
@@ -288,7 +304,8 @@
     .view-host {
       height: 100%;
       overflow: auto;
-      padding: calc(var(--topbar-height) + 22px) clamp(16px, 4vw, 44px) calc(var(--bottom-nav-height) + 34px);
+      overflow-x: hidden;
+      padding: calc(var(--topbar-height) + env(safe-area-inset-top) + 22px) clamp(16px, 4vw, 44px) calc(var(--bottom-nav-height) + 34px);
       scroll-behavior: smooth;
     }
 
@@ -636,11 +653,11 @@
       bottom: 0;
       z-index: 44;
       width: 100%;
-      min-height: calc(64px + env(safe-area-inset-bottom));
+      min-height: calc(82px + env(safe-area-inset-bottom));
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0;
-      padding: 6px 10px max(6px, env(safe-area-inset-bottom));
+      padding: 10px 12px max(16px, env(safe-area-inset-bottom));
       border-radius: 0;
       background: var(--surface);
       border-top: 1px solid color-mix(in srgb, var(--outline-variant) 78%, transparent);
@@ -651,13 +668,13 @@
     .bottom-nav-item {
       min-width: 0;
       display: grid;
-      grid-template-rows: 32px 16px;
+      grid-template-rows: 38px 20px;
       place-items: center;
-      gap: 4px;
+      gap: 5px;
       border-radius: 18px;
       background: transparent;
       color: var(--on-surface-variant);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       position: relative;
       isolation: isolate;
@@ -669,7 +686,7 @@
       grid-row: 1;
       grid-column: 1;
       width: 58px;
-      height: 30px;
+      height: 34px;
       border-radius: var(--radius-pill);
       background: var(--primary-container);
       opacity: 0;
@@ -682,7 +699,7 @@
       grid-row: 1;
       grid-column: 1;
       z-index: 2;
-      font-size: 22px;
+      font-size: 24px;
       font-variation-settings: "FILL" 0, "wght" 650, "GRAD" 0, "opsz" 24;
     }
 
@@ -711,6 +728,11 @@
     body.platform-ios .bottom-nav {
       background: color-mix(in srgb, var(--surface) 78%, transparent);
       backdrop-filter: saturate(1.35) blur(24px);
+    }
+
+    body.platform-ios .top-app-bar {
+      background: var(--surface);
+      backdrop-filter: none;
     }
 
     .bottom-nav-item .ripple {
@@ -908,9 +930,9 @@
     .date-pill {
       display: grid;
       place-items: center;
-      width: 68px;
-      height: 74px;
-      border-radius: 26px;
+      width: 64px;
+      height: 72px;
+      border-radius: 24px;
       background: var(--primary-container);
       color: var(--on-primary-container);
       font-weight: 850;
@@ -918,14 +940,19 @@
     }
 
     .date-pill small {
-      margin-bottom: 4px;
+      align-self: end;
+      margin-bottom: 2px;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .04em;
+      opacity: .82;
     }
 
     .date-pill span {
-      font-size: 26px;
+      align-self: start;
+      font-size: 34px;
+      line-height: .92;
+      font-family: var(--font-display);
     }
 
     .overview-panel {
@@ -1351,8 +1378,13 @@
     }
 
     @keyframes fabPageExpand {
+      62% {
+        background: color-mix(in srgb, var(--primary) 36%, var(--surface));
+        opacity: .92;
+      }
       to {
         transform: translate(-50%, -50%) scale(34);
+        background: var(--surface);
         opacity: 0;
         border-radius: 44px;
       }
@@ -1489,10 +1521,55 @@
       grid-row: span 2;
     }
 
+    .attached-photo:not(.featured) .subject-badge {
+      min-width: 36px;
+      height: 36px;
+      font-size: 15px;
+      z-index: 5;
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+    }
+
     .attached-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .entry-attachments {
+      display: grid;
+      gap: 10px;
+    }
+
+    .attachment-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .attachment-pill {
+      min-height: 46px;
+      max-width: 100%;
+      display: inline-grid;
+      grid-template-columns: 30px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--surface-high) 72%, transparent);
+      border: 1px solid color-mix(in srgb, var(--outline-variant) 62%, transparent);
+      color: var(--on-surface);
+      font-weight: 800;
+    }
+
+    .attachment-pill small {
+      display: block;
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--on-surface-variant);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .remove-photo-button,
@@ -1900,6 +1977,44 @@
       font-weight: 800;
     }
 
+    .search-view {
+      min-height: 100%;
+      width: min(760px, 100%);
+      margin: 0 auto;
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .search-shell {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      min-height: 66px;
+      padding: 0 18px;
+      border-radius: 28px;
+      background: var(--surface-container);
+      border: 1px solid color-mix(in srgb, var(--outline-variant) 62%, transparent);
+    }
+
+    .search-shell input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 19px;
+      font-weight: 750;
+    }
+
+    .search-results {
+      display: grid;
+      gap: 12px;
+    }
+
     .mention-panel {
       display: none;
       gap: 8px;
@@ -1927,44 +2042,58 @@
     }
 
     .memory-strip {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      grid-auto-rows: 92px;
-      gap: 10px;
-      margin-bottom: 18px;
-      align-items: stretch;
+      position: relative;
+      min-height: clamp(260px, 58vw, 430px);
+      margin: 8px auto 24px;
+      width: min(100%, 620px);
     }
 
     .memory-card {
-      min-height: 0;
-      position: relative;
+      position: absolute;
       overflow: hidden;
-      border-radius: 28px;
+      min-height: 0;
+      width: 54%;
+      aspect-ratio: .76;
+      border-radius: 34px;
       background: var(--surface-container);
       border: 1px solid color-mix(in srgb, var(--outline-variant) 64%, transparent);
       text-align: left;
       isolation: isolate;
-      grid-column: span 2;
-      grid-row: span 2;
       transform-origin: center;
+      box-shadow: 0 18px 44px rgba(20, 14, 18, .13);
+      transition: transform var(--duration-long) var(--ease-emphasized), box-shadow var(--duration-medium) var(--ease-standard);
     }
 
     .memory-card:nth-child(1) {
-      grid-column: span 3;
-      grid-row: span 3;
-      border-radius: 32px;
+      left: 23%;
+      top: 2%;
+      width: 58%;
+      z-index: 4;
     }
 
-    .memory-card:nth-child(2),
-    .memory-card:nth-child(5) {
-      grid-column: span 2;
-      grid-row: span 3;
+    .memory-card:nth-child(2) {
+      left: 6%;
+      top: 18%;
+      width: 40%;
+      z-index: 3;
+      transform: rotate(-7deg);
     }
 
-    .memory-card:nth-child(4),
-    .memory-card:nth-child(7) {
-      grid-column: span 1;
-      grid-row: span 2;
+    .memory-card:nth-child(3) {
+      right: 2%;
+      top: 24%;
+      width: 38%;
+      z-index: 2;
+      transform: rotate(6deg);
+    }
+
+    .memory-card:nth-child(n+4) {
+      display: none;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: var(--shadow);
     }
 
     .memory-card.opening {
@@ -1975,12 +2104,49 @@
     }
 
     .memory-card img,
-    .memory-card .memory-art {
+    .memory-card .memory-art,
+    .memory-collage {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
+      animation: memoryKenBurns 18s var(--ease-standard) infinite alternate;
+    }
+
+    .memory-card > img,
+    .memory-card .memory-art {
       object-fit: cover;
+    }
+
+    .memory-collage {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      padding: 10px;
+    }
+
+    .memory-collage img {
+      position: static;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      animation: none;
+    }
+
+    .memory-collage img:first-child {
+      grid-row: span 2;
+      border-radius: 24px;
+    }
+
+    @keyframes memoryKenBurns {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.08);
+      }
     }
 
     .memory-card::after {
@@ -3116,7 +3282,7 @@
     <nav class="bottom-nav" id="bottomNav" aria-label="Alt gezinme"></nav>
 
     <button class="fab" id="newEntryButton">
-      <span class="plus-disc"><span class="material-symbols-rounded">add</span></span>
+      <span class="plus-disc"><span class="material-symbols-rounded">edit</span></span>
       <span>Yeni günlük oluştur</span>
     </button>
   </div>
@@ -3127,6 +3293,8 @@
 
   <input class="hidden-input" id="timelineInput" type="file" accept=".json,.geojson,application/json">
   <input class="hidden-input" id="photoInput" type="file" accept="image/*" multiple>
+  <input class="hidden-input" id="musicInput" type="file" accept="audio/*" multiple>
+  <input class="hidden-input" id="fileInput" type="file" multiple>
   <input class="hidden-input" id="healthInput" type="file" accept=".json,.csv,application/json,text/csv">
   <input class="hidden-input" id="restoreInput" type="file" accept=".json,application/json">
 
@@ -3174,6 +3342,8 @@
       entries: [],
       places: [],
       photos: [],
+      music: [],
+      files: [],
       people: [],
       cards: [],
       devices: [],
@@ -3189,6 +3359,7 @@
         activity: false,
         health: false,
         motion: false,
+        music: false,
         nativeAI: false,
         aiPersonalization: true,
         notifications: false
@@ -3196,6 +3367,7 @@
       ui: {
         entriesView: "list",
         entryFilter: "all",
+        searchQuery: "",
         selectionMode: false,
         selectedEntries: []
       },
@@ -3217,8 +3389,11 @@
       },
       oauth: {
         googleClientId: "",
+        firebaseApiKey: "",
+        firebaseAuthDomain: "",
+        firebaseProjectId: "",
         microsoftClientId: "",
-        appleClientId: "",
+        microsoftTenantId: "common",
         redirectUri: ""
       },
       subjects: [],
@@ -3311,6 +3486,8 @@
       toastStack: document.getElementById("toastStack"),
       timelineInput: document.getElementById("timelineInput"),
       photoInput: document.getElementById("photoInput"),
+      musicInput: document.getElementById("musicInput"),
+      fileInput: document.getElementById("fileInput"),
       healthInput: document.getElementById("healthInput"),
       restoreInput: document.getElementById("restoreInput")
     };
@@ -3499,6 +3676,13 @@
       els.menuButton.setAttribute("aria-label", isRoot ? "Günlüklerde ara" : "Geri");
     }
 
+    function updateHomeMoreButton() {
+      if (!els.homeMoreButton) return;
+      const selecting = Boolean(state.ui.selectionMode);
+      els.homeMoreButton.innerHTML = `<span class="material-symbols-rounded">${selecting ? "close" : "more_vert"}</span>`;
+      els.homeMoreButton.setAttribute("aria-label", selecting ? "Seçimi kapat" : "Günlük seçenekleri");
+    }
+
     function goBackNavigation() {
       if (activeView === "editor" && editorDirty) saveCurrentEntry({ silent: true, openSetup: false });
       if (activeView === "entrySetup") activeView = "editor";
@@ -3599,16 +3783,19 @@
       renderBottomNav();
       renderProfileMini();
       updateTopNavigationButton();
+      updateHomeMoreButton();
 
       const renderers = {
         onboarding: renderOnboardingView,
         entries: renderEntriesView,
+        search: renderSearchView,
         momentPicker: renderMomentPickerView,
         editor: renderEditorView,
         entrySetup: renderEntrySetupView,
         viewer: renderViewerView,
         profile: renderProfileView,
         insights: renderInsightsView,
+        memories: renderMemoriesListView,
         suggestions: renderSuggestionsView,
         locations: renderLocationsView,
         photos: renderPhotosView,
@@ -3665,17 +3852,12 @@
         <div class="permission-list">
           <button class="permission-item" data-social-login="google">
             <span class="permission-icon"><strong>G</strong></span>
-            <span><strong>Google ile devam et</strong><p class="muted">Fotoğraf ve konum önerileri için hazır profil.</p></span>
-            <span class="material-symbols-rounded">chevron_right</span>
-          </button>
-          <button class="permission-item" data-social-login="apple">
-            <span class="permission-icon"><span class="material-symbols-rounded">phone_iphone</span></span>
-            <span><strong>Apple ile devam et</strong><p class="muted">iPhone PWA ve Face ID akışına uygun.</p></span>
+            <span><strong>Google ile giriş yap</strong><p class="muted">Firebase Authentication ve Google Drive yedekleme.</p></span>
             <span class="material-symbols-rounded">chevron_right</span>
           </button>
           <button class="permission-item" data-social-login="microsoft">
             <span class="permission-icon"><span class="material-symbols-rounded">desktop_windows</span></span>
-            <span><strong>Microsoft ile devam et</strong><p class="muted">Windows EXE ve OneDrive yedeklemeye uygun.</p></span>
+            <span><strong>Microsoft ile giriş yap</strong><p class="muted">MSAL.js, Microsoft Entra ve OneDrive yedekleme.</p></span>
             <span class="material-symbols-rounded">chevron_right</span>
           </button>
         </div>
@@ -3724,6 +3906,7 @@
         </div>
         <div class="permission-list">
           ${renderPermissionItem("photos", getPlatformLabel(), "Seçtiğin görsellerden anı, kişi ve yer önerisi üretir.", "photo_library")}
+          ${renderPermissionItem("music", "Müzikler", "Anılara uygun şarkı seçer ve günlüklerine müzik eklemeyi açar.", "music_note")}
           ${renderPermissionItem("location", "Konum", "Bugün gittiğin yerlerden yazma fikri çıkarır.", "location_on")}
           ${renderPermissionItem("health", "Sağlık ve aktivite", "Koşu, yürüyüş ve hareketli günleri günlük önerisine dönüştürür.", "directions_run")}
           ${renderPermissionItem("nativeAI", "Yerel zeka köprüsü", "iOS kabukta Apple Intelligence, Windows'ta yerel model köprüsüne hazır olur.", "neurology")}
@@ -3810,6 +3993,48 @@
             </div>
           </div>
         </section>
+      `;
+    }
+
+    function renderSearchView() {
+      setHeader("Ara", "Günlüklerinde bul");
+      const query = state.ui.searchQuery || "";
+      const normalized = query.trim().toLocaleLowerCase("tr-TR");
+      const results = normalized
+        ? state.entries.filter((entry) => {
+          const photos = getEntryPhotos(entry).map((photo) => `${photo.name || ""} ${photo.placeName || ""} ${photo.subjectName || ""}`).join(" ");
+          const people = (entry.people || []).map((id) => state.people.find((person) => person.id === id)?.name || "").join(" ");
+          return `${entry.title} ${entry.displayName || ""} ${entry.body} ${photos} ${people}`.toLocaleLowerCase("tr-TR").includes(normalized);
+        })
+        : state.entries.slice(0, 6);
+      return `
+        <section class="search-view">
+          <label class="search-shell">
+            <span class="material-symbols-rounded">search</span>
+            <input id="searchPageInput" value="${escapeHtml(query)}" placeholder="Başlık, kişi, konum veya kelime ara" autocomplete="off">
+          </label>
+          <div class="search-results">
+            ${results.length ? results.map(renderSearchResult).join("") : renderEmpty("search_off", "Sonuç yok", "Aradığın kelimeyi başka bir şekilde yazmayı dene.")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderSearchResult(entry) {
+      const created = new Date(entry.createdAt);
+      const photo = getEntryPhotos(entry)[0];
+      return `
+        <button class="reflection-box" data-entry-view-id="${entry.id}" style="text-align:left;grid-template-columns:auto 1fr auto">
+          <span class="date-pill" style="width:58px;height:64px;border-radius:22px">
+            <small>${formatDate(created, { month: "short" })}</small>
+            <span>${created.getDate()}</span>
+          </span>
+          <span>
+            <strong>${escapeHtml(entry.displayName || entry.title || "Başlıksız günlük")}</strong>
+            <p class="muted">${escapeHtml(makeShortSummary(entry))}</p>
+          </span>
+          ${photo?.thumb ? `<img src="${photo.thumb}" alt="" style="width:58px;height:58px;border-radius:18px;object-fit:cover">` : `<span class="material-symbols-rounded">chevron_right</span>`}
+        </button>
       `;
     }
 
@@ -4104,7 +4329,7 @@
               <button class="pixel-icon" data-action="close-editor"><span class="material-symbols-rounded">close</span></button>
               <button class="pixel-icon active" title="AI ile yaz" data-action="ai-write"><span class="material-symbols-rounded">auto_awesome</span></button>
               <button class="pixel-icon" title="AI ile düzenle" data-action="ai-edit"><span class="material-symbols-rounded">edit_square</span></button>
-              <button class="pixel-icon" title="Görsel ekle" data-action="import-photos"><span class="material-symbols-rounded">add_photo_alternate</span></button>
+              <button class="pixel-icon" title="Ek ekle" data-action="open-attach-menu"><span class="material-symbols-rounded">add</span></button>
             </div>
             <div class="pixel-toolbar-group">
               <button class="save-pill" data-action="save-entry">Kaydet</button>
@@ -4114,7 +4339,7 @@
           <div class="ai-status" id="aiStatus"><span class="material-symbols-rounded">auto_awesome</span><span>AI yazıyor...</span></div>
           <input class="pixel-title-input" id="entryTitleInput" placeholder="Başlık ekle" value="${escapeHtml(title)}">
           <div class="journal-date-line"><span class="material-symbols-rounded">calendar_month</span>${formatDate(entry?.createdAt || new Date(), { weekday: "short", day: "numeric", month: "long", year: "numeric" })}</div>
-          ${entry ? renderAttachedPhotos(entry) : ""}
+          ${entry ? renderEntryAttachments(entry) : ""}
           <textarea class="pixel-body-input" id="entryBodyInput" placeholder="Aklında ne var?">${escapeHtml(body)}</textarea>
           <div class="mention-panel" id="mentionPanel"></div>
           <p id="saveStateText" class="muted">${entry ? `Son kayıt: ${formatDate(entry.updatedAt, { hour: "2-digit", minute: "2-digit" })}` : "Yeni günlük henüz kaydedilmedi."}</p>
@@ -4438,6 +4663,25 @@
       `;
     }
 
+    function renderEntryAttachments(entry) {
+      const photos = renderAttachedPhotos(entry);
+      const musicItems = (entry.music || []).map((id) => state.music.find((item) => item.id === id)).filter(Boolean);
+      const fileItems = (entry.files || []).map((id) => state.files.find((item) => item.id === id)).filter(Boolean);
+      const workoutItems = (entry.workouts || []).map((id) => state.healthWorkouts.find((item) => item.id === id)).filter(Boolean);
+      const chips = [
+        ...musicItems.map((item) => `<span class="attachment-pill"><span class="material-symbols-rounded">music_note</span><span><strong>Müzik</strong><small>${escapeHtml(item.name)}</small></span>${item.src ? `<audio src="${item.src}" preload="metadata"></audio>` : ""}</span>`),
+        ...workoutItems.map((item) => `<span class="attachment-pill"><span class="material-symbols-rounded">directions_run</span><span><strong>${escapeHtml(formatWorkoutName(item))}</strong><small>${item.distanceKm ? `${item.distanceKm} km` : "Aktivite"}</small></span><span></span></span>`),
+        ...fileItems.map((item) => `<span class="attachment-pill"><span class="material-symbols-rounded">attach_file</span><span><strong>Dosya</strong><small>${escapeHtml(item.name)}</small></span><span></span></span>`)
+      ].join("");
+      if (!photos && !chips) return "";
+      return `
+        <div class="entry-attachments">
+          ${photos}
+          ${chips ? `<div class="attachment-row">${chips}</div>` : ""}
+        </div>
+      `;
+    }
+
     function renderPhotoSubjectBadges(photo) {
       const regions = photo.subjectRegions?.length
         ? photo.subjectRegions
@@ -4552,6 +4796,10 @@
           people: [],
           cards: [],
           photos: [],
+          music: [],
+          files: [],
+          workouts: [],
+          shortSummary: "",
           displayName: "",
           coverStyle: "",
           setupCompleted: false
@@ -4561,6 +4809,7 @@
       }
       entry.title = title;
       entry.body = body;
+      entry.shortSummary = makeShortSummary(entry);
       entry.updatedAt = now;
       analyzeEntryLocally(entry);
       persistState();
@@ -4832,6 +5081,12 @@
     }
 
     function buildPromptContext() {
+      const currentEntry = getEditorEntry();
+      const entryPhotos = currentEntry ? getEntryPhotos(currentEntry) : [];
+      const entryPeopleNames = [
+        ...(currentEntry?.people || []).map((id) => state.people.find((person) => person.id === id)?.name || ""),
+        ...entryPhotos.flatMap((photo) => (photo.subjectRegions || []).map((region) => region.name || photo.subjectName || ""))
+      ].filter(Boolean);
       const entry = {
         title: document.getElementById("entryTitleInput")?.value || "",
         body: document.getElementById("entryBodyInput")?.value || ""
@@ -4852,7 +5107,14 @@
           visitedAt: place.visitedAt,
           source: place.source
         })) : [],
-        knownPeople: state.settings.aiSendPeople ? state.people.map((person) => person.name).slice(0, 20) : [],
+        attachedPhotos: entryPhotos.slice(0, 6).map((photo) => ({
+          name: photo.name,
+          placeName: photo.placeName,
+          takenAt: photo.takenAt,
+          moodHint: photo.moodHint || "",
+          subjects: (photo.subjectRegions || []).map((region) => ({ type: region.type, name: region.name, smile: region.smile }))
+        })),
+        knownPeople: state.settings.aiSendPeople ? [...new Set(entryPeopleNames)].slice(0, 8) : [],
         cards: state.settings.aiSendCards ? state.cards.map((card) => ({ label: card.label, bank: card.bank, last4: card.last4 })) : []
       };
       return JSON.stringify(context, null, 2);
@@ -4861,17 +5123,63 @@
     async function aiWrite() {
       try {
         setAiLoading(true);
+        const visualContext = await describeCurrentEntryPhotos();
         const output = await callGemini({
-          input: `Aşağıdaki bağlama göre günlüğü kullanıcının ağzından 2-4 paragraf devam ettir. Sadece günlük metnini yaz.\n\n${buildPromptContext()}`
+          input: `Aşağıdaki bağlama göre günlüğü kullanıcının ağzından 2-4 paragraf devam ettir. Görsel bağlamı varsa tarihi, konumu, kişileri ve görseldeki nesneleri kullan. Eski günlüklerdeki alakasız kişileri dahil etme. Sadece günlük metnini yaz.\n\nGÖRSEL BAĞLAMI:\n${visualContext || "Yok"}\n\n${buildPromptContext()}`
         });
         insertAtCursor(output.trim());
         markEditorDirty();
         showToast("AI metni ekledi", "auto_awesome");
       } catch (error) {
+        const fallback = buildLocalDraft();
+        if (fallback) {
+          insertAtCursor(fallback);
+          markEditorDirty();
+          showToast(navigator.onLine ? "Yerel taslak eklendi" : "Çevrimdışı yerel taslak eklendi", "edit_note");
+          return;
+        }
         showToast(error.message || "AI bağlantısı kurulamadı", "error");
       } finally {
         setAiLoading(false);
       }
+    }
+
+    function buildLocalDraft() {
+      const entry = getEditorEntry();
+      const suggestion = getSelectedSuggestion() || entry?.sourceSuggestion || null;
+      const photos = entry ? getEntryPhotos(entry) : [];
+      const dateText = formatDate(entry?.createdAt || new Date(), { day: "numeric", month: "long", weekday: "long" });
+      const photoBits = photos.slice(0, 2).map((photo) => [photo.placeName, photo.subjectName, photo.moodHint].filter(Boolean).join(", ")).filter(Boolean);
+      const parts = [
+        `${dateText} günü aklımda kalan şey, ${suggestion?.title || entry?.title || "bugünün küçük anları"} oldu.`,
+        photoBits.length ? `Eklediğim görseller bana ${photoBits.join("; ")} hissini hatırlatıyor.` : "",
+        suggestion?.detail ? `Bu yüzden kendime şunu sormak istiyorum: ${suggestion.detail}` : "Bu anın bende bıraktığı duyguyu sakince yazmak istiyorum."
+      ].filter(Boolean);
+      return parts.join("\n\n");
+    }
+
+    async function describeCurrentEntryPhotos() {
+      const entry = getEditorEntry();
+      if (!entry) return "";
+      const photos = getEntryPhotos(entry).filter((photo) => photo.thumb).slice(0, 2);
+      if (!photos.length) return "";
+      const descriptions = [];
+      for (const photo of photos) {
+        if (photo.aiDescription) {
+          descriptions.push(photo.aiDescription);
+          continue;
+        }
+        try {
+          const output = await callGeminiVision(photo.thumb, "Bu günlük fotoğrafını Türkçe, kısa ve somut şekilde tarif et. Görünen yer, nesneler, insanlar/hayvanlar, duygu ve varsa yazı/sembol ipuçlarını söyle. En fazla 2 cümle.");
+          photo.aiDescription = output.slice(0, 420);
+          descriptions.push(photo.aiDescription);
+        } catch (error) {
+          const local = [photo.placeName, photo.moodHint, photo.subjectName].filter(Boolean).join(", ");
+          if (local) descriptions.push(local);
+        }
+      }
+      if (descriptions.length) persistState();
+      return descriptions.join("\n");
     }
 
     async function aiEdit(mode = "edit") {
@@ -5008,13 +5316,11 @@
           </div>
           <div class="panel" style="margin-bottom:14px">
             ${signedIn ? `
-              <div class="profile-chip" style="background:transparent;padding:0;grid-template-columns:72px 1fr auto">
+              <div class="profile-chip" style="background:transparent;padding:0;grid-template-columns:72px 1fr">
                 <div class="avatar" style="width:72px;height:72px;border-radius:28px">${state.profile.photo ? `<img src="${escapeAttribute(state.profile.photo)}" alt="">` : escapeHtml((state.profile.name || "G").slice(0, 1).toUpperCase())}</div>
                 <div>
                   <div class="name" style="font-size:24px;font-weight:850">${escapeHtml(state.profile.name || "Günlük Sahibi")}</div>
-                  <div class="mail">${escapeHtml(state.profile.email || providerLabel(state.profile.authProvider || state.auth.provider))}</div>
                 </div>
-                <span class="chip"><span class="material-symbols-rounded">verified</span>${escapeHtml(providerLabel(state.profile.authProvider || state.auth.provider))}</span>
               </div>
             ` : `
               <div class="form-grid">
@@ -5121,6 +5427,7 @@
               <h2>Anılar</h2>
               <p class="muted">Günlüklerdeki fotoğraflar ve yazılar kısa anı kartlarına dönüşür.</p>
             </div>
+            <button class="tonal-button" data-action="all-memories"><span class="material-symbols-rounded">auto_stories</span>Tümüne git</button>
           </div>
           ${memories.length ? `
             <div class="memory-strip">
@@ -5150,14 +5457,15 @@
       return state.entries
         .map((entry) => {
           const photos = getEntryPhotos(entry);
-          return {
-            id: entry.id,
-            title: entry.displayName || entry.title || "Günlük anısı",
-            date: entry.createdAt,
-            summary: summarizeEntry(entry),
-            image: photos[0]?.thumb || "",
-            count: photos.length
-          };
+      return {
+        id: entry.id,
+        title: entry.displayName || entry.title || "Günlük anısı",
+        date: entry.createdAt,
+        summary: entry.shortSummary || makeShortSummary(entry),
+        image: photos[0]?.thumb || "",
+        images: photos.slice(0, 4).map((photo) => photo.thumb).filter(Boolean),
+        count: photos.length
+      };
         })
         .filter(Boolean)
         .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -5170,16 +5478,49 @@
       return text.length > 180 ? `${text.slice(0, 177)}...` : text;
     }
 
+    function makeShortSummary(entry) {
+      const source = (entry.body || entry.title || entry.displayName || "Kısa bir anı").replace(/\s+/g, " ").trim();
+      const words = source.split(/\s+/).filter(Boolean).slice(0, 8);
+      return words.join(" ") || "Kısa bir anı";
+    }
+
     function renderMemoryCard(memory) {
+      const collage = memory.images?.length > 1
+        ? `<span class="memory-collage">${memory.images.slice(0, 4).map((image) => `<img src="${image}" alt="">`).join("")}</span>`
+        : (memory.image ? `<img src="${memory.image}" alt="">` : `<span class="memory-art"></span>`);
       return `
         <button class="memory-card" data-memory-id="${memory.id}">
-          ${memory.image ? `<img src="${memory.image}" alt="">` : `<span class="memory-art"></span>`}
+          ${collage}
           <span class="memory-card-content">
             <span class="chip" style="width:max-content;background:rgba(255,255,255,.2);color:#fff"><span class="material-symbols-rounded">photo_library</span>${memory.count}</span>
             <strong style="font-size:22px;line-height:1.08">${escapeHtml(memory.title)}</strong>
-            <span>${formatDate(memory.date, { day: "numeric", month: "long", year: "numeric" })}</span>
+            <span>${escapeHtml(memory.summary || "")}</span>
           </span>
         </button>
+      `;
+    }
+
+    function renderMemoriesListView() {
+      setHeader("Tüm anılar", "Kısa özetler");
+      const memories = buildMemoryCards();
+      return `
+        <section class="view">
+          <div class="section-head">
+            <div>
+              <h2>Tüm anılar</h2>
+              <p class="muted">Her günlükten en fazla 8 kelimelik anı özeti.</p>
+            </div>
+          </div>
+          <div class="entry-list">
+            ${memories.length ? memories.map((memory) => `
+              <button class="reflection-box" data-memory-id="${memory.id}" style="text-align:left;grid-template-columns:76px 1fr auto">
+                ${memory.image ? `<img src="${memory.image}" alt="" style="width:76px;height:76px;border-radius:24px;object-fit:cover">` : `<span class="permission-icon"><span class="material-symbols-rounded">auto_stories</span></span>`}
+                <span><strong>${escapeHtml(memory.title)}</strong><p class="muted">${escapeHtml(memory.summary || "")}</p></span>
+                <span class="material-symbols-rounded">chevron_right</span>
+              </button>
+            `).join("") : renderEmpty("auto_stories", "Anı yok", "Fotoğraflı günlük yazınca burada listelenir.")}
+          </div>
+        </section>
       `;
     }
 
@@ -5189,6 +5530,7 @@
       const photos = getEntryPhotos(entry);
       const index = photos.length ? clamp(photoIndex, 0, photos.length - 1) : 0;
       const photo = photos[index];
+      const track = pickMemoryTrack(entry, photo);
       openDialog({
         icon: "movie",
         title: entry.displayName || entry.title || "Anı",
@@ -5202,7 +5544,8 @@
             <div class="memory-player-summary">
               <p class="eyebrow" style="color:rgba(255,255,255,.76)">${formatDate(entry.createdAt, { day: "numeric", month: "long", year: "numeric" })}</p>
               <h2 style="margin:8px 0 10px">${escapeHtml(entry.displayName || entry.title || "Günlük anısı")}</h2>
-              <p style="line-height:1.55">${highlightKnownNames(summarizeEntry(entry))}</p>
+              <p style="line-height:1.55">${highlightKnownNames(entry.shortSummary || makeShortSummary(entry))}</p>
+              ${track ? `<p class="chip" style="margin-top:10px;width:max-content;background:rgba(255,255,255,.18);color:#fff"><span class="material-symbols-rounded">music_note</span>${escapeHtml(track.name)}</p>${track.src ? `<audio src="${track.src}" autoplay loop controls style="width:100%;margin-top:10px"></audio>` : ""}` : ""}
               ${photos.length > 1 ? `<p class="muted" style="color:rgba(255,255,255,.76);margin-top:10px">${index + 1}/${photos.length}</p>` : ""}
             </div>
           </div>
@@ -5222,6 +5565,16 @@
           openMemoryPlayer(entryId, index + Number(button.dataset.memoryNav || 0));
         });
       });
+    }
+
+    function pickMemoryTrack(entry, photo) {
+      const attached = (entry.music || []).map((id) => state.music.find((item) => item.id === id)).find(Boolean);
+      if (attached) return attached;
+      const text = `${entry.title || ""} ${entry.body || ""} ${photo?.moodHint || ""}`.toLocaleLowerCase("tr-TR");
+      if (/koş|spor|enerji|maç|hareket/.test(text)) return { name: "Enerjik ritim" };
+      if (/deniz|sahil|huzur|sakin|akşam/.test(text)) return { name: "Sakin dalga" };
+      if (/mutlu|gül|arkadaş|mert|aile/.test(text)) return { name: "Sıcak anı" };
+      return { name: "Yumuşak günlük teması" };
     }
 
     function renderSuggestionsView() {
@@ -5401,7 +5754,7 @@
             </div>
             <span class="material-symbols-rounded" style="color:var(--primary)">person</span>
           </div>
-          <p class="muted">${escapeHtml(person.note || personality || "Henüz kişilik özeti oluşmadı.")}</p>
+          <p class="muted">${escapeHtml(person.personality || person.note || personality || "Henüz kişilik özeti oluşmadı.")}</p>
           <div class="entry-meta">
             <span class="chip"><span class="material-symbols-rounded">auto_stories</span>${count} günlük</span>
             <span class="chip"><span class="material-symbols-rounded">photo_library</span>${person.photoIds?.length || 0} görsel</span>
@@ -5427,6 +5780,19 @@
       if (/spor|koş|yürüyüş|maç/.test(words)) traits.push("hareketli");
       if (/konuş|destek|yardım/.test(words)) traits.push("destekleyici");
       return traits.length ? `${person.name} günlüklerinde ${traits.slice(0, 3).join(", ")} biri gibi görünüyor.` : "";
+    }
+
+    function inferPersonalityFromName(name) {
+      const normalized = name.toLocaleLowerCase("tr-TR");
+      const related = state.entries.filter((entry) => `${entry.title} ${entry.body}`.toLocaleLowerCase("tr-TR").includes(normalized));
+      const words = related.map((entry) => entry.body).join(" ").toLocaleLowerCase("tr-TR");
+      const traits = [];
+      if (/gül|mutlu|neşe|kahkaha|eğlen/.test(words)) traits.push("neşeli");
+      if (/sakin|huzur|sessiz|düşünceli/.test(words)) traits.push("sakin");
+      if (/spor|koş|yürüyüş|maç|enerji/.test(words)) traits.push("hareketli");
+      if (/konuş|destek|yardım|dinle/.test(words)) traits.push("destekleyici");
+      if (/yarat|çiz|müzik|fikir/.test(words)) traits.push("yaratıcı");
+      return traits.length ? `${name} günlüklerinde ${traits.slice(0, 3).join(", ")} biri gibi görünüyor.` : "";
     }
 
     function openPortraitGenerator(personId) {
@@ -5473,13 +5839,41 @@
           showToast(error.message || "Portre oluşturulamadı", "error");
         }
       }
-      openDialog({
-        icon: "image",
-        title: "Portre promptu hazır",
-        body: `<div style="white-space:pre-wrap">${escapeHtml(prompt)}</div>`,
-        raw: true,
-        actions: [{ label: "Kapat", kind: "filled", onClick: closeDialog }]
-      });
+      person.generatedPortrait = createGeneratedPortrait(person, style);
+      person.portraitStyle = style;
+      person.portraitPrompt = prompt;
+      persistState();
+      closeDialog();
+      showToast("Portre oluşturuldu", "image");
+      render();
+    }
+
+    function createGeneratedPortrait(person, style = "illustration") {
+      const initials = (person.name || "G").split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+      const seed = hashString(`${person.name}:${style}`);
+      const hue = seed % 360;
+      const bg = `hsl(${hue} 42% 86%)`;
+      const fg = `hsl(${(hue + 28) % 360} 34% 32%)`;
+      const accent = `hsl(${(hue + 320) % 360} 58% 64%)`;
+      const shape = style === "anime"
+        ? `<circle cx="128" cy="98" r="52" fill="${accent}" opacity=".34"/><path d="M84 174c18-34 70-34 88 0 8 16-4 34-44 34s-52-18-44-34z" fill="${fg}" opacity=".86"/>`
+        : style === "portrait"
+          ? `<path d="M76 185c15-42 89-42 104 0 7 20-16 39-52 39s-59-19-52-39z" fill="${fg}" opacity=".9"/><circle cx="128" cy="103" r="48" fill="${accent}" opacity=".62"/>`
+          : `<rect x="67" y="80" width="122" height="122" rx="48" fill="${accent}" opacity=".45"/><circle cx="128" cy="111" r="46" fill="${fg}" opacity=".82"/>`;
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+          <defs>
+            <linearGradient id="g" x1="20" y1="16" x2="230" y2="236" gradientUnits="userSpaceOnUse">
+              <stop stop-color="${bg}"/><stop offset="1" stop-color="white" stop-opacity=".72"/>
+            </linearGradient>
+          </defs>
+          <rect width="256" height="256" rx="58" fill="url(#g)"/>
+          <circle cx="52" cy="56" r="28" fill="${accent}" opacity=".26"/>
+          <circle cx="205" cy="204" r="36" fill="${fg}" opacity=".12"/>
+          ${shape}
+          <text x="128" y="146" text-anchor="middle" font-family="Google Sans, Arial, sans-serif" font-size="48" font-weight="800" fill="white">${escapeHtml(initials)}</text>
+        </svg>`;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
     }
 
     function renderCardsView() {
@@ -5960,6 +6354,19 @@
       });
       const titleInput = document.getElementById("entryTitleInput");
       const bodyInput = document.getElementById("entryBodyInput");
+      const searchInput = document.getElementById("searchPageInput");
+      searchInput?.addEventListener("input", () => {
+        state.ui.searchQuery = searchInput.value;
+        const results = els.viewHost.querySelector(".search-results");
+        if (results) {
+          const query = state.ui.searchQuery.trim().toLocaleLowerCase("tr-TR");
+          const matches = query
+            ? state.entries.filter((entry) => `${entry.title} ${entry.displayName || ""} ${entry.body}`.toLocaleLowerCase("tr-TR").includes(query))
+            : state.entries.slice(0, 6);
+          results.innerHTML = matches.length ? matches.map(renderSearchResult).join("") : renderEmpty("search_off", "Sonuç yok", "Aradığın kelimeyi başka bir şekilde yazmayı dene.");
+          results.querySelectorAll("[data-entry-view-id]").forEach((button) => button.addEventListener("click", () => viewEntry(button.dataset.entryViewId)));
+        }
+      });
       titleInput?.addEventListener("input", markEditorDirty);
       bodyInput?.addEventListener("input", () => {
         markEditorDirty();
@@ -6036,6 +6443,10 @@
       const actions = {
         "save-entry": () => saveCurrentEntry(),
         "new-entry": openMomentPicker,
+        "all-memories": () => {
+          activeView = "memories";
+          render();
+        },
         "new-blank-entry": startNewEntry,
         "close-editor": () => {
           if (editorDirty) saveCurrentEntry({ silent: true, openSetup: false });
@@ -6073,12 +6484,12 @@
         "idea-for-selected": () => ideaForSelected(false),
         "write-selected": () => ideaForSelected(true),
         "refresh-suggestions": () => {
-          suggestionSeed++;
+          suggestionSeed = Date.now() + Math.random();
           selectedSuggestionId = null;
           render();
         },
         "lucky-suggestions": () => {
-          suggestionSeed++;
+          suggestionSeed = Date.now() + Math.random();
           selectedSuggestionId = null;
           showToast("Öneriler yenilendi", "casino");
           render();
@@ -6086,6 +6497,7 @@
         "prompt-past": () => setPromptTab("past", source),
         "prompt-memories": () => setPromptTab("memories", source),
         "prompt-goals": () => setPromptTab("goals", source),
+        "open-attach-menu": () => openAttachmentMenu(source),
         "more-editor": () => openEditorToolsMenu(source),
         "new-from-suggestion": () => {
           const suggestion = getSelectedSuggestion();
@@ -6094,6 +6506,10 @@
         },
         "import-timeline": () => els.timelineInput.click(),
         "import-photos": openPhotoPickerForEntry,
+        "import-music": () => els.musicInput.click(),
+        "import-files": () => els.fileInput.click(),
+        "attach-activity": openActivityAttachDialog,
+        "request-music": requestMusicAccess,
         "request-photo-library": requestPhotoLibrary,
         "connect-health": connectHealthData,
         "bulk-favorite": bulkFavoriteSelected,
@@ -6233,6 +6649,7 @@
         );
       }
       if (enabled && key === "photos") requestPhotoLibrary();
+      if (enabled && key === "music") requestMusicAccess();
       if (enabled && key === "health") connectHealthData();
       if (enabled && key === "nativeAI") showToast(getNativeBridge() ? "Yerel zeka köprüsü hazır" : "Yerel zeka için native kabuk bekleniyor", "neurology");
       if (enabled && key === "notifications" && "Notification" in window) {
@@ -6264,7 +6681,6 @@
       }
       if (provider === "google") return connectGoogle();
       if (provider === "microsoft") return connectMicrosoft();
-      if (provider === "apple") return connectApple();
       showToast(`${providerLabel(provider)} desteklenmiyor`, "account_circle");
     }
 
@@ -6273,7 +6689,7 @@
       const nativeSignIn = bridge?.signInWithProvider || bridge?.signIn || bridge?.authenticateProvider;
       if (typeof nativeSignIn !== "function") return null;
       try {
-        return await nativeSignIn.call(bridge, { provider, scopes: provider === "google" ? ["profile", "email", "drive.appdata"] : ["profile", "email"] });
+        return await nativeSignIn.call(bridge, { provider, scopes: provider === "google" ? ["profile", "email", "drive.appdata"] : ["profile", "email", "Files.ReadWrite.AppFolder"] });
       } catch (error) {
         showToast(error.message || `${providerLabel(provider)} oturumu iptal edildi`, "account_circle");
         return null;
@@ -6310,6 +6726,39 @@
     }
 
     async function connectGoogle() {
+      const firebaseConfig = getFirebaseConfig();
+      if (firebaseConfig) {
+        try {
+          const appModule = await import("https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js");
+          const authModule = await import("https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js");
+          const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(firebaseConfig);
+          const auth = authModule.getAuth(app);
+          const provider = new authModule.GoogleAuthProvider();
+          provider.addScope("https://www.googleapis.com/auth/drive.appdata");
+          provider.addScope("profile");
+          provider.addScope("email");
+          const credential = await authModule.signInWithPopup(auth, provider);
+          const token = authModule.GoogleAuthProvider.credentialFromResult(credential)?.accessToken || await credential.user.getIdToken();
+          applySignedInProfile("google", {
+            accessToken: token,
+            idToken: await credential.user.getIdToken(),
+            email: credential.user.email,
+            name: credential.user.displayName,
+            picture: credential.user.photoURL
+          });
+          await syncToGoogleDrive({ silent: true });
+          persistState();
+          showToast("Google ve Drive bağlandı", "cloud_done");
+          if (activeView === "onboarding") onboardingNext();
+          else render();
+          return;
+        } catch (error) {
+          if (!state.oauth.googleClientId) {
+            showToast(error.message || "Firebase Google girişi açılamadı", "error");
+            return;
+          }
+        }
+      }
       if (!state.oauth.googleClientId) return showProviderSignInUnavailable("google");
       await loadScriptOnce("https://accounts.google.com/gsi/client", "google-gsi");
       if (!window.google?.accounts?.oauth2) return showToast("Google Identity Services yüklenemedi", "error");
@@ -6338,6 +6787,14 @@
       tokenClient.requestAccessToken();
     }
 
+    function getFirebaseConfig() {
+      const apiKey = state.oauth.firebaseApiKey?.trim();
+      const authDomain = state.oauth.firebaseAuthDomain?.trim();
+      const projectId = state.oauth.firebaseProjectId?.trim();
+      if (!apiKey || !authDomain || !projectId) return null;
+      return { apiKey, authDomain, projectId };
+    }
+
     async function hydrateGoogleProfile(token) {
       try {
         const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${token}` } });
@@ -6353,32 +6810,88 @@
       }
     }
 
-    function connectMicrosoft() {
+    async function connectMicrosoft() {
       if (!state.oauth.microsoftClientId) return showProviderSignInUnavailable("microsoft");
+      try {
+        await loadScriptOnce("https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js", "msal-browser");
+        if (window.msal?.PublicClientApplication) {
+          const msalClient = new window.msal.PublicClientApplication({
+            auth: {
+              clientId: state.oauth.microsoftClientId,
+              authority: `https://login.microsoftonline.com/${state.oauth.microsoftTenantId || "common"}`,
+              redirectUri: state.oauth.redirectUri || getRedirectUri()
+            },
+            cache: { cacheLocation: "localStorage" }
+          });
+          const result = await msalClient.loginPopup({
+            scopes: ["openid", "profile", "email", "User.Read", "Files.ReadWrite.AppFolder"],
+            prompt: "select_account"
+          });
+          if (result?.accessToken) {
+            state.auth.provider = "microsoft";
+            state.auth.signedIn = true;
+            state.auth.accessToken = result.accessToken;
+            state.auth.idToken = result.idToken || "";
+            state.auth.expiresAt = result.expiresOn ? result.expiresOn.getTime() : Date.now() + 3600 * 1000;
+            state.backup.service = "onedrive";
+            state.backup.enabled = true;
+            state.backup.auto = true;
+            state.backup.status = "connected";
+            await hydrateMicrosoftProfile(result.accessToken);
+            persistState();
+            await syncToOneDrive({ silent: true });
+            showToast("Microsoft ve OneDrive bağlandı", "cloud_done");
+            if (activeView === "onboarding") onboardingNext();
+            else render();
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn(error);
+      }
       const redirectUri = encodeURIComponent(state.oauth.redirectUri || getRedirectUri());
       const scope = encodeURIComponent("openid profile email User.Read Files.ReadWrite.AppFolder");
       const stateValue = encodeURIComponent(`journal:microsoft:${Date.now()}`);
-      location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${encodeURIComponent(state.oauth.microsoftClientId)}&response_type=token&redirect_uri=${redirectUri}&scope=${scope}&response_mode=fragment&state=${stateValue}`;
-    }
-
-    function connectApple() {
-      if (!state.oauth.appleClientId) return showProviderSignInUnavailable("apple");
-      const redirectUri = encodeURIComponent(state.oauth.redirectUri || getRedirectUri());
-      const stateValue = encodeURIComponent(`journal:apple:${Date.now()}`);
-      location.href = `https://appleid.apple.com/auth/authorize?client_id=${encodeURIComponent(state.oauth.appleClientId)}&redirect_uri=${redirectUri}&response_type=id_token&scope=name%20email&response_mode=fragment&state=${stateValue}`;
+      location.href = `https://login.microsoftonline.com/${encodeURIComponent(state.oauth.microsoftTenantId || "common")}/oauth2/v2.0/authorize?client_id=${encodeURIComponent(state.oauth.microsoftClientId)}&response_type=token&redirect_uri=${redirectUri}&scope=${scope}&response_mode=fragment&state=${stateValue}`;
     }
 
     function showProviderSignInUnavailable(provider) {
+      const isGoogle = provider === "google";
       openDialog({
         icon: "account_circle",
-        title: `${providerLabel(provider)} ile giriş`,
+        title: `${providerLabel(provider)} bağlantısı`,
         body: `
-          <p>Bu buton gerçek ${providerLabel(provider)} hesabını açmaya hazır; fakat salt HTML dosyasında sağlayıcı kimliği gömülü değilse güvenli oturum ekranı açılamaz.</p>
-          <p class="muted">iOS/Windows paketinde native oturum köprüsü veya yayına özel provider kimliği verildiğinde kullanıcı Client ID görmeden doğrudan giriş yapar.</p>
+          <p>${providerLabel(provider)} oturum ekranını açmak için yayına ait güvenli kimlik bilgileri gerekir. Bu değerler Firebase/Entra panelinden alınır ve sadece bir kez girilir.</p>
+          ${isGoogle ? `
+            <label class="form-field"><span>Firebase API Key</span><input id="oauthFirebaseApiKey" value="${escapeHtml(state.oauth.firebaseApiKey || "")}" placeholder="AIza..."></label>
+            <label class="form-field"><span>Firebase Auth Domain</span><input id="oauthFirebaseAuthDomain" value="${escapeHtml(state.oauth.firebaseAuthDomain || "")}" placeholder="proje.firebaseapp.com"></label>
+            <label class="form-field"><span>Firebase Project ID</span><input id="oauthFirebaseProjectId" value="${escapeHtml(state.oauth.firebaseProjectId || "")}" placeholder="proje-id"></label>
+            <label class="form-field"><span>Google OAuth Client ID</span><input id="oauthGoogleClientId" value="${escapeHtml(state.oauth.googleClientId || "")}" placeholder="...apps.googleusercontent.com"></label>
+          ` : `
+            <label class="form-field"><span>Microsoft Entra Client ID</span><input id="oauthMicrosoftClientId" value="${escapeHtml(state.oauth.microsoftClientId || "")}" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+            <label class="form-field"><span>Tenant</span><input id="oauthMicrosoftTenantId" value="${escapeHtml(state.oauth.microsoftTenantId || "common")}" placeholder="common veya tenant id"></label>
+          `}
+          <label class="form-field"><span>Redirect URI</span><input id="oauthRedirectUri" value="${escapeHtml(state.oauth.redirectUri || getRedirectUri())}" placeholder="${escapeHtml(getRedirectUri())}"></label>
+          <p class="muted">GitHub Pages kullanıyorsan bu adresi Firebase Authentication veya Microsoft Entra redirect listesine de ekle.</p>
         `,
         raw: true,
         actions: [
-          { label: "Tamam", kind: "filled", onClick: closeDialog }
+          { label: "Vazgeç", kind: "text", onClick: closeDialog },
+          { label: "Kaydet ve bağlan", kind: "filled", onClick: () => {
+            if (isGoogle) {
+              state.oauth.firebaseApiKey = document.getElementById("oauthFirebaseApiKey")?.value.trim() || "";
+              state.oauth.firebaseAuthDomain = document.getElementById("oauthFirebaseAuthDomain")?.value.trim() || "";
+              state.oauth.firebaseProjectId = document.getElementById("oauthFirebaseProjectId")?.value.trim() || "";
+              state.oauth.googleClientId = document.getElementById("oauthGoogleClientId")?.value.trim() || "";
+            } else {
+              state.oauth.microsoftClientId = document.getElementById("oauthMicrosoftClientId")?.value.trim() || "";
+              state.oauth.microsoftTenantId = document.getElementById("oauthMicrosoftTenantId")?.value.trim() || "common";
+            }
+            state.oauth.redirectUri = document.getElementById("oauthRedirectUri")?.value.trim() || getRedirectUri();
+            persistState();
+            closeDialog();
+            startOAuth(provider);
+          }}
         ]
       });
     }
@@ -6529,8 +7042,21 @@
       ]);
     }
 
+    function openAttachmentMenu(source) {
+      openAnchorMenu(source, [
+        {
+          label: "Ekler",
+          items: [
+            { icon: "add_photo_alternate", label: "Görsel ekle", action: "import-photos" },
+            { icon: "music_note", label: "Müzik ekle", action: "import-music" },
+            { icon: "directions_run", label: "Aktivite ekle", action: "attach-activity" },
+            { icon: "attach_file", label: "Dosya ekle", action: "import-files" }
+          ]
+        }
+      ]);
+    }
+
     function openAnchorMenu(source, sections) {
-      if (getPlatform() === "ios" && openNativeActionSelect(source, sections)) return;
       const rect = source.getBoundingClientRect();
       const width = Math.min(340, window.innerWidth - 22);
       const left = clamp(rect.right - width, 10, window.innerWidth - width - 10);
@@ -6764,10 +7290,12 @@
         icon: "person_add",
         title: "Kişi ekle",
         body: `
-          <div class="form-grid">
-            <label class="form-field full"><span>Ad</span><input id="personName" placeholder="Kişi adı"></label>
-            <label class="form-field full"><span>Not</span><textarea id="personNote" placeholder="Nereden tanıyorsun, günlüklerde nasıl geçiyor?"></textarea></label>
-          </div>
+        <div class="form-grid">
+          <label class="form-field full"><span>Ad</span><input id="personName" placeholder="Kişi adı"></label>
+          <label class="form-field full"><span>Not</span><textarea id="personNote" placeholder="Nereden tanıyorsun, günlüklerde nasıl geçiyor?"></textarea></label>
+          <label class="form-field full"><span>Kişilik</span><textarea id="personPersonality" placeholder="Sıcakkanlı, sakin, enerjik..."></textarea></label>
+          <button class="tonal-button full" id="inferPersonalityButton" type="button"><span class="material-symbols-rounded">auto_awesome</span>AI'ya bırak</button>
+        </div>
         `,
         raw: true,
         actions: [
@@ -6775,13 +7303,27 @@
           { label: "Ekle", kind: "filled", onClick: () => {
             const name = document.getElementById("personName").value.trim();
             if (!name) return showToast("Ad gerekli", "error");
-            state.people.push({ id: uid("person"), name, note: document.getElementById("personNote").value.trim(), createdAt: new Date().toISOString() });
+            state.people.push({
+              id: uid("person"),
+              name,
+              note: document.getElementById("personNote").value.trim(),
+              personality: document.getElementById("personPersonality").value.trim(),
+              photoIds: [],
+              regionIds: [],
+              createdAt: new Date().toISOString()
+            });
             persistState();
             closeDialog();
             showToast("Kişi eklendi", "person_add");
             render();
           }}
         ]
+      });
+      document.getElementById("inferPersonalityButton")?.addEventListener("click", () => {
+        const name = document.getElementById("personName")?.value.trim();
+        if (!name) return showToast("Önce isim yaz", "person");
+        const target = document.getElementById("personPersonality");
+        if (target) target.value = inferPersonalityFromName(name) || "Günlüklerde henüz yeterli veri yok; şimdilik doğal ve sade biri gibi görünüyor.";
       });
     }
 
@@ -6909,6 +7451,125 @@
         if (entry) activeEditorId = entry.id;
       }
       els.photoInput.click();
+    }
+
+    async function requestMusicAccess() {
+      const bridge = getNativeBridge();
+      if (bridge?.requestMusicLibrary) {
+        try {
+          await bridge.requestMusicLibrary();
+          state.permissions.music = true;
+          persistState();
+          showToast("Müzik erişimi istendi", "music_note");
+          return;
+        } catch (error) {
+          showToast(error.message || "Müzik izni alınamadı", "error");
+        }
+      }
+      state.permissions.music = true;
+      persistState();
+      showToast("Web sürümünde müzik seçici kullanılacak", "music_note");
+    }
+
+    async function importMusicFiles(files) {
+      if (activeView === "editor" && !activeEditorId) saveCurrentEntry({ silent: true, openSetup: false });
+      const entry = getEditorEntry();
+      const imported = [];
+      for (const file of files) {
+        if (!file.type.startsWith("audio/")) continue;
+        const src = file.size <= 4_500_000 ? await readFileAsDataUrl(file) : "";
+        const item = {
+          id: uid("music"),
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          src,
+          createdAt: new Date().toISOString(),
+          entryId: activeEditorId || ""
+        };
+        state.music.push(item);
+        imported.push(item);
+        if (entry) {
+          entry.music = entry.music || [];
+          if (!entry.music.includes(item.id)) entry.music.push(item.id);
+        }
+      }
+      if (!imported.length) return showToast("Müzik bulunamadı", "music_off");
+      state.permissions.music = true;
+      persistState();
+      showToast(`${imported.length} müzik eklendi`, "music_note");
+      render();
+    }
+
+    async function importGenericFiles(files) {
+      if (activeView === "editor" && !activeEditorId) saveCurrentEntry({ silent: true, openSetup: false });
+      const entry = getEditorEntry();
+      const imported = files.map((file) => ({
+        id: uid("file"),
+        name: file.name,
+        type: file.type || "application/octet-stream",
+        size: file.size,
+        createdAt: new Date().toISOString(),
+        entryId: activeEditorId || ""
+      }));
+      imported.forEach((item) => state.files.push(item));
+      if (entry) {
+        entry.files = entry.files || [];
+        imported.forEach((item) => {
+          if (!entry.files.includes(item.id)) entry.files.push(item.id);
+        });
+      }
+      if (!imported.length) return;
+      persistState();
+      showToast(`${imported.length} dosya eklendi`, "attach_file");
+      render();
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result || "");
+        reader.onerror = () => resolve("");
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function openActivityAttachDialog() {
+      const entry = getEditorEntry() || saveCurrentEntry({ silent: true, openSetup: false });
+      if (!entry) return;
+      const workouts = state.healthWorkouts.slice().sort((a, b) => new Date(b.startAt) - new Date(a.startAt)).slice(0, 8);
+      openDialog({
+        icon: "directions_run",
+        title: "Aktivite ekle",
+        body: workouts.length ? `
+          <div class="setting-controls">
+            ${workouts.map((workout) => `
+              <button class="switch-row" data-attach-workout="${workout.id}">
+                <span>${escapeHtml(formatWorkoutName(workout))}<small>${formatDate(workout.startAt, { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}</small></span>
+                <span class="material-symbols-rounded">chevron_right</span>
+              </button>
+            `).join("")}
+          </div>
+        ` : `<p class="muted">Henüz aktivite yok. Sağlık verisi bağlandığında koşu ve yürüyüşler burada görünür.</p>`,
+        raw: true,
+        actions: [
+          { label: "Sağlık bağla", kind: "tonal", onClick: () => {
+            closeDialog();
+            connectHealthData();
+          }},
+          { label: "Kapat", kind: "text", onClick: closeDialog }
+        ]
+      });
+      document.querySelectorAll("[data-attach-workout]").forEach((button) => {
+        button.addEventListener("click", () => {
+          entry.workouts = entry.workouts || [];
+          if (!entry.workouts.includes(button.dataset.attachWorkout)) entry.workouts.push(button.dataset.attachWorkout);
+          persistState();
+          closeDialog();
+          showToast("Aktivite eklendi", "directions_run");
+          render();
+        });
+      });
     }
 
     async function importImagesFromDirectory(dirHandle) {
@@ -7207,6 +7868,7 @@
               w: clamp(Number(region.w ?? region.box?.w ?? .18), .05, .9),
               h: clamp(Number(region.h ?? region.box?.h ?? .22), .05, .9)
             }));
+            applyKnownSubjectNames(photo);
             photo.subjectName = photo.subjectRegions.find((region) => region.name)?.name || "";
             photo.needsName = photo.subjectRegions.some((region) => !region.name);
             photo.subjectRegions.filter((region) => region.name).forEach((region) => upsertPersonFromSubject(region.name, photo.id, region.id, region.type));
@@ -7221,7 +7883,8 @@
         const faceRegions = await detectFacesLocally(photo.thumb).catch(() => []);
         if (faceRegions.length) {
           photo.subjectRegions = faceRegions;
-          photo.needsName = true;
+          applyKnownSubjectNames(photo);
+          photo.needsName = photo.subjectRegions.some((region) => !region.name && !region.skipped);
           persistState();
         }
         return;
@@ -7243,6 +7906,7 @@
             w: clamp(Number(subject.box?.w ?? .18), .05, .9),
             h: clamp(Number(subject.box?.h ?? .22), .05, .9)
           }));
+          applyKnownSubjectNames(photo);
           photo.subjectType = photo.subjectRegions[0]?.type || "subject";
           photo.subjectName = photo.subjectRegions.find((region) => region.name)?.name || photo.subjectName || "";
           photo.smileHint = photo.subjectRegions.some((region) => region.smile);
@@ -7257,10 +7921,44 @@
         const faceRegions = await detectFacesLocally(photo.thumb).catch(() => []);
         if (faceRegions.length) {
           photo.subjectRegions = faceRegions;
-          photo.needsName = true;
+          applyKnownSubjectNames(photo);
+          photo.needsName = photo.subjectRegions.some((region) => !region.name && !region.skipped);
           persistState();
         }
       }
+    }
+
+    function applyKnownSubjectNames(photo) {
+      const regions = photo.subjectRegions || [];
+      const unnamed = regions.filter((region) => !region.name && !region.skipped);
+      if (!unnamed.length) return;
+      if (unnamed.length === 1) unnamed.forEach((region) => {
+        const type = region.type || photo.subjectType || "person";
+        const candidates = (state.subjects || []).filter((subject) => {
+          if (!subject.name) return false;
+          const subjectType = subject.type || "person";
+          if (type === "person") return subjectType === "person" || subjectType === "subject";
+          return subjectType === type || subjectType === "subject";
+        });
+        if (candidates.length === 1) region.name = candidates[0].name;
+      });
+      photo.subjectName = regions.find((region) => region.name)?.name || photo.subjectName || "";
+      photo.needsName = regions.some((region) => !region.name && !region.skipped);
+      regions.filter((region) => region.name).forEach((region) => upsertPersonFromSubject(region.name, photo.id, region.id, region.type || photo.subjectType || "person"));
+    }
+
+    function applyNameToPendingPhotoRegions(name, type = "person", sourcePhotoId = "") {
+      state.photos.forEach((photo) => {
+        if (photo.id === sourcePhotoId) return;
+        const regions = photo.subjectRegions || [];
+        const pending = regions.filter((region) => !region.name && !region.skipped && ((region.type || "person") === type || type === "subject"));
+        if (pending.length === 1) {
+          pending[0].name = name;
+          photo.subjectName = photo.subjectName || name;
+          photo.needsName = regions.some((region) => !region.name && !region.skipped);
+          upsertPersonFromSubject(name, photo.id, pending[0].id, pending[0].type || type);
+        }
+      });
     }
 
     async function callGeminiVision(dataUrl, prompt) {
@@ -7330,6 +8028,7 @@
         body: `
           ${photo.thumb ? `<img src="${photo.thumb}" alt="" style="width:100%;max-height:240px;object-fit:cover;border-radius:24px;margin-bottom:10px">` : ""}
           <label class="form-field"><span>İsim</span><input id="subjectNameInput" value="${escapeHtml(region?.name || photo.subjectName || "")}" placeholder="Örn. Atom"></label>
+          <label class="form-field"><span>Kişilik</span><textarea id="subjectPersonalityInput" placeholder="İstersen kısa bir kişilik notu ekle"></textarea></label>
         `,
         raw: true,
         actions: [
@@ -7343,7 +8042,10 @@
           { label: "Kaydet", kind: "filled", onClick: () => {
             const name = document.getElementById("subjectNameInput").value.trim();
             if (!name) return showToast("Bir isim yaz", "help");
-            savePhotoSubjectName(photo.id, name, region?.id || "");
+            const person = savePhotoSubjectName(photo.id, name, region?.id || "");
+            const personality = document.getElementById("subjectPersonalityInput")?.value.trim();
+            if (person && personality) person.personality = personality;
+            persistState();
             closeDialog();
             render();
           }}
@@ -7378,9 +8080,11 @@
           createdAt: new Date().toISOString()
         });
       }
-      upsertPersonFromSubject(name, photoId, regionId, region?.type || photo.subjectType || "person");
+      const person = upsertPersonFromSubject(name, photoId, regionId, region?.type || photo.subjectType || "person");
+      applyNameToPendingPhotoRegions(name, region?.type || photo.subjectType || "person", photoId);
       persistState();
       showToast(`${name} kaydedildi`, "sell");
+      return person;
     }
 
     function upsertPersonFromSubject(name, photoId = "", regionId = "", type = "person") {
@@ -7883,7 +8587,7 @@
       if (!location.hash.includes("access_token") && !location.hash.includes("id_token")) return;
       const params = new URLSearchParams(location.hash.slice(1));
       const stateValue = params.get("state") || "";
-      const provider = stateValue.includes("microsoft") ? "microsoft" : stateValue.includes("apple") ? "apple" : "";
+      const provider = stateValue.includes("microsoft") ? "microsoft" : "";
       const accessToken = params.get("access_token") || "";
       const idToken = params.get("id_token") || "";
       if (!provider) return;
@@ -7899,7 +8603,6 @@
         state.backup.status = "connected";
         await hydrateMicrosoftProfile(accessToken);
       }
-      if (provider === "apple") hydrateProfileFromIdToken(idToken, "apple");
       history.replaceState(null, document.title, location.pathname + location.search);
       persistState();
       if (provider === "microsoft") await syncToOneDrive({ silent: true });
@@ -7981,6 +8684,10 @@
         goBackNavigation();
         return;
       }
+      activeView = "search";
+      render();
+      setTimeout(() => document.getElementById("searchPageInput")?.focus(), 80);
+      return;
       openDialog({
         icon: "search",
         title: "Günlüklerde ara",
@@ -8001,7 +8708,16 @@
     });
     els.sidebarScrim.addEventListener("click", closeSidebar);
     els.profileChip.addEventListener("click", () => navigate("profile"));
-    els.homeMoreButton.addEventListener("click", () => openHomeMenu(els.homeMoreButton));
+    els.homeMoreButton.addEventListener("click", () => {
+      if (state.ui.selectionMode) {
+        state.ui.selectionMode = false;
+        state.ui.selectedEntries = [];
+        persistState();
+        render();
+        return;
+      }
+      openHomeMenu(els.homeMoreButton);
+    });
     els.newEntryButton.addEventListener("click", openMomentPicker);
     els.saveTopButton.addEventListener("click", () => saveCurrentEntry());
     els.quickLockButton.addEventListener("click", async () => {
@@ -8034,6 +8750,16 @@
       els.photoInput.value = "";
       if (files.length) await importPhotos(files);
     });
+    els.musicInput.addEventListener("change", async () => {
+      const files = [...(els.musicInput.files || [])];
+      els.musicInput.value = "";
+      if (files.length) await importMusicFiles(files);
+    });
+    els.fileInput.addEventListener("change", async () => {
+      const files = [...(els.fileInput.files || [])];
+      els.fileInput.value = "";
+      if (files.length) await importGenericFiles(files);
+    });
     els.healthInput.addEventListener("change", async () => {
       const file = els.healthInput.files?.[0];
       els.healthInput.value = "";
@@ -8064,6 +8790,15 @@
         closeAnchorMenu();
         closeSidebar();
       }
+    });
+    window.addEventListener("offline", () => {
+      els.body.classList.add("offline");
+      showToast("Çevrimdışı mod açık; günlükler yerel önbellekte çalışır", "cloud_off");
+    });
+    window.addEventListener("online", () => {
+      els.body.classList.remove("offline");
+      showToast("Bağlantı geri geldi", "cloud_done");
+      scheduleCloudBackup();
     });
 
     (async function initApp() {
